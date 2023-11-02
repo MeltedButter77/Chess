@@ -44,9 +44,6 @@ class ChessBoard:
                 initial_board[(j, i)] = Square(grid_size, (j, i), piece)
         self.data = initial_board
 
-    def update(self):
-        pass
-
     def draw(self, game_window):
         mouse_pos = pygame.mouse.get_pos()
         for coord in self.data:

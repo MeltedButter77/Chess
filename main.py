@@ -22,7 +22,6 @@ while True:
             elif event.button == 3:
                 board.select(None)
 
-    board.update()
     board.draw(game_window)
 
     pygame.display.update()
