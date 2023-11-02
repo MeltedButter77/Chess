@@ -51,7 +51,10 @@ class ChessBoard:
 
             # Highlight squares with the .playable attribute set to True
             if self.data[coord].playable:
-                highlight_color = (0, 255, 0, 120)  # White with 100 alpha (semi-transparent)
+                if not self.data[coord].piece:
+                    highlight_color = (0, 255, 0, 120)
+                else:
+                    highlight_color = (255, 0, 0, 200)
                 highlight_surface = pygame.Surface(self.data[coord].rect.size, pygame.SRCALPHA)
                 highlight_surface.fill(highlight_color)
                 game_window.blit(highlight_surface, self.data[coord].rect.topleft)
