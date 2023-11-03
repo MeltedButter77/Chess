@@ -11,10 +11,8 @@ class Square:
         self.piece = piece
         self.playable = False
         if (coord[0] + coord[1]) % 2 == 0:
-            print("yellow")
             self.colour = (255, 255, 0)  # yellow
         else:
-            print("orange")
             self.colour = (255, 165, 0)  # orange
 
 
