@@ -20,9 +20,9 @@ class Square:
         self.piece = piece
         self.playable = False
         if (coord[0] + coord[1]) % 2 == 0:
-            self.colour = (255, 255, 0)  # yellow
+            self.colour = (255, 255, 255)  # (255, 255, 0)  # yellow
         else:
-            self.colour = (255, 165, 0)  # orange
+            self.colour = (0, 0, 0)  # (255, 165, 0)  # orange
 
 
 class ChessBoard:
