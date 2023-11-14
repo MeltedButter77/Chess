@@ -3,6 +3,15 @@ import pygame
 pygame.init()
 font = pygame.font.Font(None, 36)
 
+# Define the types of pieces
+piece_types = ["pawn", "rook", "knight", "bishop", "queen", "king"]
+
+# Dictionary to hold the loaded images
+piece_images = {}
+for piece in piece_types:
+    piece_images["b_" + piece] = pygame.image.load(f'pieces/black_{piece}.png')
+    piece_images["w_" + piece] = pygame.image.load(f'pieces/white_{piece}.png')
+
 
 class Square:
     def __init__(self, grid_size, coord, piece):
@@ -11,9 +20,9 @@ class Square:
         self.piece = piece
         self.playable = False
         if (coord[0] + coord[1]) % 2 == 0:
-            self.colour = (255, 255, 0)  # yellow
+            self.colour = (255, 255, 255)  # (255, 255, 0)  # yellow
         else:
-            self.colour = (255, 165, 0)  # orange
+            self.colour = (0, 0, 0)  # (255, 165, 0)  # orange
 
 
 class ChessBoard:
@@ -76,6 +85,18 @@ class ChessBoard:
                 text_surf = font.render(self.data[coord].piece, True, (0, 0, 0))
                 text_rect = text_surf.get_rect(center=self.data[coord].rect.center)
                 game_window.blit(text_surf, text_rect)
+
+                # Mapping of piece representation to their respective image objects
+                piece_map = {
+                    "p": "b_pawn", "r": "b_rook", "n": "b_knight", "b": "b_bishop", "q": "b_queen",
+                    "k": "b_king",
+                    "P": "w_pawn", "R": "w_rook", "N": "w_knight", "B": "w_bishop", "Q": "w_queen",
+                    "K": "w_king"
+                }
+
+                piece = self.data[coord].piece
+                if piece in piece_map:
+                    game_window.blit(piece_images[piece_map[piece]], self.data[coord].rect)
 
     def check_playability(self):
         if self.selected:
