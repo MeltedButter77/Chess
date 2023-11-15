@@ -6,11 +6,16 @@ font = pygame.font.Font(None, 36)
 # Define the types of pieces
 piece_types = ["pawn", "rook", "knight", "bishop", "queen", "king"]
 
+colour_white = (255, 179, 128)
+colour_black = (255, 105, 97)
+
+lines_pic = pygame.image.load(f'data/lines.png')
+
 # Dictionary to hold the loaded images
 piece_images = {}
 for piece in piece_types:
-    piece_images["b_" + piece] = pygame.image.load(f'pieces/black_{piece}.png')
-    piece_images["w_" + piece] = pygame.image.load(f'pieces/white_{piece}.png')
+    piece_images["b_" + piece] = pygame.image.load(f'data/black_{piece}.png')
+    piece_images["w_" + piece] = pygame.image.load(f'data/white_{piece}.png')
 
 
 class Square:
@@ -20,9 +25,9 @@ class Square:
         self.piece = piece
         self.playable = False
         if (coord[0] + coord[1]) % 2 == 0:
-            self.colour = (255, 255, 255)  # (255, 255, 0)  # yellow
+            self.colour = colour_white  # (255, 255, 0)  # yellow
         else:
-            self.colour = (0, 0, 0)  # (255, 165, 0)  # orange
+            self.colour = colour_black  # (255, 165, 0)  # orange
 
 
 class ChessBoard:
@@ -33,11 +38,11 @@ class ChessBoard:
         pieces_main = ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r']
         pieces_pawn = 'p'
 
-        # Fill board with pieces and empty spaces
+        # Fill board with data and empty spaces
         for i in range(8):
             for j in range(8):
                 piece = None
-                if i == 0:  # Main black pieces
+                if i == 0:  # Main black data
                     piece = pieces_main[j]
                 elif i == 1:  # Black pawns
                     piece = pieces_pawn
@@ -45,7 +50,7 @@ class ChessBoard:
                     piece = None
                 elif i == 6:  # White pawns
                     piece = pieces_pawn.upper()
-                elif i == 7:  # Main white pieces
+                elif i == 7:  # Main white data
                     piece = pieces_main[j].upper()
 
                 initial_board[(j, i)] = Square(grid_size, (j, i), piece)
@@ -78,6 +83,8 @@ class ChessBoard:
             highlight_surface = pygame.Surface(self.data[self.selected].rect.size, pygame.SRCALPHA)
             highlight_surface.fill(highlight_color)
             game_window.blit(highlight_surface, self.data[self.selected].rect.topleft)
+
+        game_window.blit(lines_pic, lines_pic.get_rect())
 
         # If there's a piece on the square, draw its letter
         for coord in self.data:
