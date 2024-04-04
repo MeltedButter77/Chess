@@ -7,7 +7,7 @@ window_size = (800, 800)
 game_window = pygame.display.set_mode(window_size)
 grid_size = window_size[0] / 8
 clock = pygame.time.Clock()
-fps = 60
+fps = 30
 
 board = ChessBoard(grid_size)
 while True:
